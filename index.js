@@ -21,11 +21,11 @@ window.onload = () => {
   const output = document.querySelector("#output");
 
   function updateOutput() {
-    const text = input.textContent;
+    const text = input.value;
     output.innerHTML = color(text);
   }
 
-  input.addEventListener("change", () => {
+  input.addEventListener("input", () => {
     updateOutput();
   });
 
@@ -33,7 +33,7 @@ window.onload = () => {
     if (event.key == "v" && event.ctrlKey) {
       navigator.clipboard.readText()
         .then((text) => {
-          input.textContent = text;
+          input.value = text;
           updateOutput();
         });
     } else if (event.key == "c" && event.ctrlKey) {
