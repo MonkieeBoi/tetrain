@@ -18,11 +18,11 @@ function color(text) {
 
 window.onload = () => {
   const input = document.querySelector("#input");
-  const outupt = document.querySelector("#output");
+  const output = document.querySelector("#output");
 
   function updateOutput() {
     const text = input.textContent;
-    outupt.innerHTML = color(text);
+    output.innerHTML = color(text);
   }
 
   input.addEventListener("change", () => {
@@ -37,7 +37,10 @@ window.onload = () => {
           updateOutput();
         });
     } else if (event.key == "c" && event.ctrlKey) {
-      navigator.clipboard.writeText(outupt.innerHTML);
+      const text = new ClipboardItem({
+        "text/html": new Blob([output.innerHTML], { type: "text/html" }),
+      });
+      navigator.clipboard.write([text]);
     }
   };
 };
