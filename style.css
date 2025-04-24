@@ -1,0 +1,22 @@
+body {
+    background-color: #2e3440;
+    color: white;
+    width: 90vw;
+    padding: 0 10px;
+}
+
+#input {
+    border-radius: 3px;
+    border: 1px solid white;
+    padding: 10px;
+    font-size: 1.4em;
+    width: 100%;
+}
+
+#output {
+    border-radius: 3px;
+    border: 1px solid white;
+    padding: 10px;
+    font-size: 1.2em;
+    width: 100%;
+}
