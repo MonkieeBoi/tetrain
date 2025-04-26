@@ -25,22 +25,36 @@ window.onload = () => {
     output.innerHTML = color(text);
   }
 
+  function paste() {
+    navigator.clipboard.readText()
+      .then((text) => {
+        input.value = text;
+        updateOutput();
+      });
+  }
+
+  function copy() {
+    const text = new ClipboardItem({
+      "text/html": new Blob([output.innerHTML], { type: "text/html" }),
+    });
+    navigator.clipboard.write([text]);
+  }
+
+  document.querySelector("#copy").onclick = copy;
+  document.querySelector("#paste").onclick = paste;
+
   input.addEventListener("input", () => {
     updateOutput();
   });
 
   document.onkeydown = (event) => {
     if (event.key == "v" && event.ctrlKey) {
-      navigator.clipboard.readText()
-        .then((text) => {
-          input.value = text;
-          updateOutput();
-        });
+      paste();
+    } else if (event.key == "C" && event.ctrlKey && event.shiftKey) {
+      console.log(output.innerHTML);
+      navigator.clipboard.writeText(output.innerHTML);
     } else if (event.key == "c" && event.ctrlKey) {
-      const text = new ClipboardItem({
-        "text/html": new Blob([output.innerHTML], { type: "text/html" }),
-      });
-      navigator.clipboard.write([text]);
+      copy();
     }
   };
 };
