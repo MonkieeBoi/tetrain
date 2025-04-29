@@ -19,18 +19,11 @@ function color(text) {
 window.onload = () => {
   const input = document.querySelector("#input");
   const output = document.querySelector("#output");
+  const checkbox = document.querySelector("#autocopy");
 
   function updateOutput() {
     const text = input.value;
     output.innerHTML = color(text);
-  }
-
-  function paste() {
-    navigator.clipboard.readText()
-      .then((text) => {
-        input.value = text;
-        updateOutput();
-      });
   }
 
   function copy() {
@@ -38,6 +31,17 @@ window.onload = () => {
       "text/html": new Blob([output.innerHTML], { type: "text/html" }),
     });
     navigator.clipboard.write([text]);
+  }
+
+  function paste() {
+    navigator.clipboard.readText()
+      .then((text) => {
+        input.value = text;
+        updateOutput();
+        if (checkbox.checked) {
+          copy();
+        }
+      });
   }
 
   document.querySelector("#copy").onclick = copy;
