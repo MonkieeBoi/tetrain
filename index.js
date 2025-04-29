@@ -19,7 +19,8 @@ function color(text) {
 window.onload = () => {
   const input = document.querySelector("#input");
   const output = document.querySelector("#output");
-  const checkbox = document.querySelector("#autocopy");
+  const auto = document.querySelector("#autocopy");
+  const raw = document.querySelector("#copyraw");
 
   function updateOutput() {
     const text = input.value;
@@ -27,10 +28,22 @@ window.onload = () => {
   }
 
   function copy() {
+    if (raw.checked) {
+      copyraw();
+    } else {
+      copyhtml();
+    }
+  }
+
+  function copyhtml() {
     const text = new ClipboardItem({
       "text/html": new Blob([output.innerHTML], { type: "text/html" }),
     });
     navigator.clipboard.write([text]);
+  }
+
+  function copyraw() {
+    navigator.clipboard.writeText(output.innerHTML);
   }
 
   function paste() {
@@ -38,13 +51,13 @@ window.onload = () => {
       .then((text) => {
         input.value = text;
         updateOutput();
-        if (checkbox.checked) {
+        if (auto.checked) {
           copy();
         }
       });
   }
 
-  document.querySelector("#copy").onclick = copy;
+  document.querySelector("#copy").onclick = copyhtml;
   document.querySelector("#paste").onclick = paste;
 
   input.addEventListener("input", () => {
@@ -55,8 +68,7 @@ window.onload = () => {
     if (event.key == "v" && event.ctrlKey) {
       paste();
     } else if (event.key == "C" && event.ctrlKey && event.shiftKey) {
-      console.log(output.innerHTML);
-      navigator.clipboard.writeText(output.innerHTML);
+      copyraw();
     } else if (event.key == "c" && event.ctrlKey) {
       copy();
     }
