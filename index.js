@@ -73,4 +73,14 @@ window.onload = () => {
       copy();
     }
   };
+
+  for (const mino in dict) {
+    document.querySelector(`#${mino}-colour`).addEventListener(
+      "change",
+      (event) => {
+        dict[mino] = event.target.value;
+        updateOutput();
+      },
+    );
+  }
 };

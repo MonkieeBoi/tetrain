@@ -29,3 +29,11 @@ button {
     border-radius: 2px;
     border: none;
 }
+
+* {
+    font-family: monospace;
+}
+
+div {
+    font-size: 1.2em;
+}
