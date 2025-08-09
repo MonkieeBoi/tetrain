@@ -57,7 +57,7 @@ window.onload = () => {
       });
   }
 
-  document.querySelector("#copy").onclick = copyhtml;
+  document.querySelector("#copy").onclick = copy;
   document.querySelector("#paste").onclick = paste;
 
   input.addEventListener("input", () => {
